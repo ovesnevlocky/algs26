@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print()
-{
-	printf("hello world\n");
-}
-
 int findBiggestNum(int a)
 {
 	int ret = 0;
