@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void print()
+{
+	printf("hello world\n");
+}
 
 int findBiggestNum(int a)
 {
@@ -35,7 +39,6 @@ int getIndex(int num, int count)
 
 	return  num % 10;
 }
-
 
 
 int **prepareArr(int size)
