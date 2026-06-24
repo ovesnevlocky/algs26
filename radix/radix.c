@@ -31,7 +31,6 @@ int getIndex(int num, int count)
 			break;
 	}
 
-
 	return  num % 10;
 }
 
@@ -120,7 +119,7 @@ int main()
 	printf("biggest num has %i digits\n", biggestNum);	
 	putchar('\n');
 
-
+	return 0;
 
 		
 }
