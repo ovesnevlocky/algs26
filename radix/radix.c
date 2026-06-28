@@ -115,16 +115,27 @@ void setSorted(uint32_t *arr, uint32_t **backetArr, int biggestNum, int sizeArr)
 
 int main()
 {
+	FILE *fp = fopen("test.txt", "r");
 	
-	//int arr[] = {12, 3423, 4, 1,23, 19111919, 23223, 323253, 9876543, 77, 3, 2, 5, 34, 221, 853, 232223 , 0 , 0};
-       	int arr[] = {1234, INT_MAX, INT_MIN, 43, -123454, 0, 32, 1, 1234, 5432, -2345432, 432343, -2304320, -2, -32, 4 , -123443929, 0, -42, -1234563};
-	int size = sizeof(arr)/sizeof(arr[0]);
+       	//int arr[] = {1234, INT_MAX,-1, 1,  INT_MIN, 43, -123454, 0, 32, 1, 1234, 5432, -2345432, 432343, -2304320, -2, -32, 4 , -123443929, 0, -42, -1234563};
+	int size;
+	fscanf(fp, "%i", &size);
+	int input;
+	int count_file = 0;
+	int *arr = malloc(sizeof(int) * size);
+	while(!feof(fp))
+	{
+		fscanf(fp, "%i\n", &input);
+		arr[count_file] = input;
+		count_file++;
+				
+	}
 	
 	uint32_t *arr32 = malloc(sizeof(uint32_t) * size);
 		
 	convertToU32(arr32, arr, size);
 	int biggestNum = findBiggestNumarr(arr32, size);
-	printf("biggest num is %i\n", biggestNum);	
+	printf("%i\n", size);	
 	
 	uint32_t *tmp_arr = NULL;
 	uint32_t **backetArr = prepareArr(size + 1);
@@ -144,18 +155,18 @@ int main()
 		}
 		tmp_arr = NULL;
 		setSorted(arr32, backetArr, biggestNum, size);
-		for(int i = 0; i < size; i++)
-			printf("%lu ", arr32[i]);
-		putchar('\n');
+		//for(int i = 0; i < size; i++)
+		//	printf("%lu ", arr32[i]);
+		//putchar('\n');
 
 	}
 
 	convertToInt(arr32, arr, size);
 	
 	for(int i = 0; i < size; i++)
-		printf("%i ", arr[i]);
+		printf("%i\n", arr[i]);
 
-	putchar('\n');
+	//putchar('\n');
 
 	freeBacket(backetArr);
 	return 0;

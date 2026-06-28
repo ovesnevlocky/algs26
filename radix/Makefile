@@ -7,7 +7,7 @@ clean :
 	rm -f bin/radix
 
 run : 
-	./bin/radix
+	./bin/radix > res.txt
 
 valgrind : 
 	valgrind ./bin/radix
