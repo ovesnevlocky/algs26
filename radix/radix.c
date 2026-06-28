@@ -127,7 +127,7 @@ void setSorted(int *arr, int **backetArr, int biggestNum, int sizeArr)
 int main()
 {
 	int pos = 2;
-	int arr[] = {12, 3423, 4, 1, 77, 3, 2, 5, 34, 221, 853, 232223};
+	int arr[] = {12, 3423, 4, 1, 77, 3, 2, 5, 34, 221, 853, 232223 , 0 , 0};
 	int size = sizeof(arr)/sizeof(arr[0]); 
 	int num = 12345;
 	
@@ -147,8 +147,6 @@ int main()
 			int idxInArr = 0;
 			//idx should be from 0 to 9
 			tmp_arr = backetArr[idx];
-			//printf(" idx of arr is: %i\n", idx);
-			//printf("%i %i\n", i, target);
 			while(idxInArr < size + 1)
 			{
 				//if nothing in there, should be initialized as -1
@@ -166,11 +164,8 @@ int main()
 	for(int i = 0; i < size; i++)
 		printf("%i ", arr[i]);
 	putchar('\n');
-	//printBacket(biggestNum, backetArr);
 
 	}
-//	printf("biggest num has %i digits\n", biggestNum);	
-
 	for(int i = 0; i < size; i++)
 		printf("%i ", arr[i]);
 
