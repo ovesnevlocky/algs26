@@ -113,7 +113,7 @@ void setSorted(uint32_t *arr, uint32_t **backetArr, int biggestNum, int sizeArr)
 
 int main()
 {
-	FILE *fp = fopen("test.txt", "r");
+	FILE *fp = fopen("expected10k.txt", "r");
 	
 	int size;
 	fscanf(fp, "%i", &size);
