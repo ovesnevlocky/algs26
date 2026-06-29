@@ -16,6 +16,8 @@ void freeBacket(uint32_t **backetArr)
 
 //flip the sign bit to make
 //comparison of negative ints possible
+//what it does is add 2^31 to shift all values
+//into unsigned while preserving order
 static inline uint32_t bitSignReverseToU32(int a)
 {
 	return (uint32_t)a ^ 0x80000000u;
