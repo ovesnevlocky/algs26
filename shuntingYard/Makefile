@@ -5,3 +5,7 @@ bin/main : main.c queue.c queue.h stack.c stack.h
 
 run:
 	./bin/main
+
+
+clean: 
+	rm -f ./bin/main
