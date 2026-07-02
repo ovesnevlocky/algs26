@@ -59,7 +59,7 @@ var stackPop(Stack *s)
 	var ret = {0};
 	
 	ret.tag = UNINICIALIZED;
-	if(isStackEmpty(s)
+	if(isStackEmpty(s))
 		return ret;
 
 	ret = s->arr[s->top];
