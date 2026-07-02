@@ -4,22 +4,12 @@
 #include "token.h"
 #include <stdlib.h>
 
-#define  PREC_ONE '-'
-#define  PREC_TWO '+'
-#define  PREC_THREE '*'
-#define  PREC_FOUR '/'
-
-
 
 bool isOp(char ch)
 {
 	return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
-bool checkop(char ch)
-{
-	return ch == '*' || ch == '/';
-}
 
 int getPrecedence(char ch)
 {
@@ -36,6 +26,7 @@ int getPrecedence(char ch)
 			return -1;
 	}
 }
+
 //function to get how many digits 
 int digits(int a)
 {
@@ -63,7 +54,9 @@ void parseData(Queue *inputQ, char *str)
 		if(isOp(*ptr_s))
 		{
 			tmp.tag = CHAR;
+			//get precedence according to operator
 			tmp.data.op.precedence = getPrecedence(*ptr_s);
+			//record the original operator
 			tmp.data.op.op = *ptr_s;
 			pushQueue(inputQ, tmp);
 			//increment for this char 
@@ -95,6 +88,20 @@ Queue getSolveStack(Queue *inputQ)
 	Queue outQ;
 	queueInit(&outQ);
 
+	while(!isQueueEmpty(inputQ))
+	{
+		var tmp = popQueue(inputQ);
+		if(tmp.tag == CHAR)
+		{
+			return ret;	
+		
+		}else if(tmp.tag == INT)
+		{
+			return ret;
+		}
+	
+	}
+
 	return ret;
 }
 
@@ -117,3 +124,6 @@ int main()
 
 	return 0;
 }
+
+
+

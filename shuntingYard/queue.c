@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "queue.h"
+#include <string.h>
 
 void printhai()
 {
@@ -11,6 +12,7 @@ void queueInit(Queue *q)
 	q->head = 0;
 	q->tail = 0;
 	q->count = 0;
+	memset(q->arr, 0, sizeof(var)* MAX_SIZE);
 }
 
 bool isQueueEmpty(Queue *q)

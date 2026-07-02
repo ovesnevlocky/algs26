@@ -13,7 +13,7 @@ void printMem(var a)
 			printf("%i\n", a.data.var);
 			break;
 		case CHAR:
-			printf("%c\n", a.data.op.op);
+			printf("%c prec: %i\n", a.data.op.op, a.data.op.precedence);
 			break;
 		default:
 			printf("unknown tag: %i\n", a.tag);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include <stdlib.h>
-
+#include <string.h>
 #include "stack.h"
 
 void hellostack()
@@ -13,6 +13,7 @@ void stackInit(Stack *s)
 {
 	s->top = -1;
 	s->count = 0;
+	memset(s->arr, 0, sizeof(var) * MAX_SIZE);
 }
 
 bool isStackFull(Stack *s)
@@ -49,6 +50,10 @@ bool stackPush(Stack *s, var a)
        
 var stackPeek(Stack *s)
 {
+	var ret = {0};
+	ret.tag = UNINICIALIZED;
+	if(s-> top < 0)
+		return ret; 
 	return s->arr[s->top];
 }
 
