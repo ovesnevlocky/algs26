@@ -47,7 +47,6 @@ bool stackPush(Stack *s, var a)
 	return true;
 }
        
-
 var stackPeek(Stack *s)
 {
 	return s->arr[s->top];
@@ -63,8 +62,6 @@ var stackPop(Stack *s)
 		return ret;
 
 	ret = s->arr[s->top];
-	
-	
 
 	//set uninicialized to indicate non active element
 	s->arr[s->top].tag = UNINICIALIZED;

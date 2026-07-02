@@ -37,8 +37,6 @@ bool pushQueue(Queue *q, var a)
 	q-> count += 1;
 
 	return true;
-
-
 }
 
 var popQueue(Queue *q)
@@ -58,7 +56,6 @@ var popQueue(Queue *q)
 	return ret;
 }
 
-
 var peek(Queue *q)
 {
 	var ret = {0};
@@ -69,7 +66,5 @@ var peek(Queue *q)
 		return ret;	
 	}
 
-
 	return q->arr[q->head];
-	
 }

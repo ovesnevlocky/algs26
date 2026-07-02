@@ -49,19 +49,17 @@ int digits(int a)
 void perseData(Queue *inputQ, char *str)
 {
 	char *ptr_s = str;
-	int idx = 0;
-	while(*ptr_s  && str[idx] != '\0')
+	//Iterate until get to the null char
+	while(*ptr_s)
 	{
-		
 		var tmp = {0};
 
-		if(isOp(str[idx]))
+		if(isOp(*ptr_s))
 		{
 			tmp.tag = CHAR;
-			tmp.data.operand = str[idx];
+			tmp.data.operand = *ptr_s;
 			pushQueue(inputQ, tmp);
 			//increment for this char 
-			idx++;
 			ptr_s++;
 		}
 		else
@@ -72,11 +70,9 @@ void perseData(Queue *inputQ, char *str)
 			pushQueue(inputQ, tmp);
 			int size = digits(var);
 			//increment as many as the var has digits
-			idx += size;
 			ptr_s += size;	
 		}
 		//skip a white space
-		idx++;
 		ptr_s++;
 	}
 }

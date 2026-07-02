@@ -3,3 +3,7 @@
 *.o
 
 bin/
+
+try/
+
+test/

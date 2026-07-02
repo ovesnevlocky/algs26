@@ -1,8 +1,6 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-
-
 typedef enum varType
 {
 	UNINICIALIZED = 0,
@@ -20,6 +18,5 @@ typedef struct
 	}data;
 
 }var;
-
 
 #endif

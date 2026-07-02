@@ -18,7 +18,6 @@ typedef struct
 
 void printhai();
 
-
 void queueInit(Queue *q);
 
 bool isQueueEmpty(Queue *q);
