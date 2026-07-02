@@ -4,12 +4,22 @@
 #include "token.h"
 #include <stdlib.h>
 
+#define  PREC_ONE '-'
+#define  PREC_TWO '+'
+#define  PREC_THREE '*'
+#define  PREC_FOUR '/'
+
+
 
 bool isOp(char ch)
 {
 	return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
+bool checkop(char ch)
+{
+	return ch == '*' || ch == '/';
+}
 void printMem(var v)
 {
 	switch(v.tag)
@@ -79,7 +89,7 @@ void perseData(Queue *inputQ, char *str)
 int main()
 {
 
-	char *str = "1 + 2 + 3 * 23432 + 2345 + 654";
+	char *str = "1 + 2 + 3 * 23432 + 2345 + 654 + 23 + 2343";
 	Queue inputQ;
 	queueInit(&inputQ);
 	
