@@ -20,25 +20,22 @@ bool checkop(char ch)
 {
 	return ch == '*' || ch == '/';
 }
-void printMem(var v)
+
+int getPrecedence(char ch)
 {
-	switch(v.tag)
+	switch(ch)
 	{
-		case UNINICIALIZED: 
-		      puts("uninicialized");
-		      break;
-		case INT:
-		      printf("popped: %i\n", v.data.var);
-		      break;
-		case CHAR:
-		      printf("pooped: %c\n", v.data.operand);
-		      break;
-		default: 
-		      puts("unkonown value");
-		      break;
+		case '+':
+		case '-':
+			return 1;
+		case '*':
+		case '/':
+			return 2;
+		default:
+			puts("unknown operator");
+			return -1;
 	}
 }
-
 //function to get how many digits 
 int digits(int a)
 {
@@ -55,7 +52,7 @@ int digits(int a)
 
 }
 
-void perseData(Queue *inputQ, char *str)
+void parseData(Queue *inputQ, char *str)
 {
 	char *ptr_s = str;
 	//Iterate until get to the null char
@@ -66,7 +63,8 @@ void perseData(Queue *inputQ, char *str)
 		if(isOp(*ptr_s))
 		{
 			tmp.tag = CHAR;
-			tmp.data.operand = *ptr_s;
+			tmp.data.op.precedence = getPrecedence(*ptr_s);
+			tmp.data.op.op = *ptr_s;
 			pushQueue(inputQ, tmp);
 			//increment for this char 
 			ptr_s++;
@@ -86,21 +84,36 @@ void perseData(Queue *inputQ, char *str)
 	}
 }
 
+Queue getSolveStack(Queue *inputQ)
+{
+	Queue ret;
+	queueInit(&ret);
+
+	Stack holdingS;
+	stackInit(&holdingS);
+
+	Queue outQ;
+	queueInit(&outQ);
+
+	return ret;
+}
+
+
 int main()
 {
 
-	char *str = "1 + 2 + 3 * 23432 + 2345 + 654 + 23 + 2343";
+	char *str = "1 + 2 + 3 * 23432 + 2345 + 654 + 23 + 2343 - 2 / 3";
+
+	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
-	
-	perseData(&inputQ, str);
 
-	while(!isQueueEmpty(&inputQ))
-	{
-		var ret = popQueue(&inputQ);
-		printMem(ret);
+	parseData(&inputQ, str);
 	
-	}
+	printQueue(inputQ);
+
+
+	Queue solveS = getSolveStack(&inputQ);
 
 	return 0;
 }

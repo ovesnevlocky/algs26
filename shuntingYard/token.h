@@ -8,15 +8,23 @@ typedef enum varType
 	CHAR = 11
 }varType;
 
+typedef struct
+{
+	char op;
+	int precedence;
+	
+}operator;
+
 typedef struct 
 {
 	varType tag;
 	union
 	{
 		int var;
-		char operand;
+		operator op;
 	}data;
 
 }var;
 
+void printMem(var a);
 #endif

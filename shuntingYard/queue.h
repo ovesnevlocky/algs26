@@ -30,6 +30,7 @@ var popQueue(Queue *q);
 
 var peek(Queue *q);
 
+void printQueue(const Queue q);
 
 #endif
 

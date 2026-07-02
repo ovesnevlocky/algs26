@@ -68,3 +68,18 @@ var peek(Queue *q)
 
 	return q->arr[q->head];
 }
+
+void printQueue(const Queue q)
+{
+	int count  = q.count;
+	int head = q.head;
+
+	var tmp = {0};
+	while(count > 0)
+	{
+		tmp = q.arr[head];
+		printMem(tmp);
+		count--;
+		head++;
+	}
+}

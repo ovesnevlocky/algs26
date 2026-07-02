@@ -71,3 +71,18 @@ var stackPop(Stack *s)
 	return ret;
 }
 
+void stackPrint(const Stack s)
+{
+	int tmpTop = s.top;
+	int count = s.count;
+	var tmp = {0};
+
+	while(count > 0)
+	{
+		tmp = s.arr[tmpTop];
+		printMem(tmp);
+		tmpTop--;		
+		count--;
+	}
+
+}

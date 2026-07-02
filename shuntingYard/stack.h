@@ -26,4 +26,6 @@ var stackPeek(Stack *s);
 var  stackPop(Stack *s);
 void hellostack();
 
+void stackPrint(const Stack s);
+
 #endif
