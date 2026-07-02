@@ -91,13 +91,17 @@ Queue getSolveStack(Queue *inputQ)
 	while(!isQueueEmpty(inputQ))
 	{
 		var tmp = popQueue(inputQ);
-		if(tmp.tag == CHAR)
+			
+		if(tmp.tag == INT)
 		{
-			return ret;	
-		
-		}else if(tmp.tag == INT)
+			pushQueue(&outQ, tmp);		
+		}
+		else if(tmp.tag == CHAR)
 		{
-			return ret;
+			//first peek, if the precedence of the top element 
+			//is lower than that of element 
+			//about to push, then push
+			var peek
 		}
 	
 	}
