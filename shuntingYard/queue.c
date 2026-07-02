@@ -58,7 +58,7 @@ var popQueue(Queue *q)
 	return ret;
 }
 
-var peek(Queue *q)
+var peekQueue(Queue *q)
 {
 	var ret = {0};
 	ret.tag = UNINICIALIZED;	

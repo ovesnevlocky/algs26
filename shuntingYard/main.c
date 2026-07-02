@@ -87,7 +87,7 @@ Queue getSolveStack(Queue *inputQ)
 
 	Queue outQ;
 	queueInit(&outQ);
-
+	
 	while(!isQueueEmpty(inputQ))
 	{
 		var tmp = popQueue(inputQ);
@@ -98,10 +98,14 @@ Queue getSolveStack(Queue *inputQ)
 		}
 		else if(tmp.tag == CHAR)
 		{
-			//first peek, if the precedence of the top element 
-			//is lower than that of element 
-			//about to push, then push
-			var peek
+			//first peekQueue 
+			//lets say a is the element about to push
+			//         b is the element on top of stack
+			//if a's precedence is higher than that of a,  push
+			//other wise pop and push to the outQ
+			//until the condition matches then push the a to holding stack
+			printf("hahaha");
+
 		}
 	
 	}

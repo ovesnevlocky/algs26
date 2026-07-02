@@ -28,7 +28,7 @@ bool pushQueue(Queue *q, var a);
 
 var popQueue(Queue *q);
 
-var peek(Queue *q);
+var peekQueue(Queue *q);
 
 void printQueue(const Queue q);
 
