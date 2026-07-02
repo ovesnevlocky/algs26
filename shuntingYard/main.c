@@ -26,7 +26,6 @@ void printMem(var v)
 		default: 
 		      puts("unkonown value");
 		      break;
-	
 	}
 }
 
