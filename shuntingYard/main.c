@@ -140,13 +140,20 @@ Queue getOutQ(Queue *inputQ)
 	
 }
 
+int getSolution(Queue *outQ)
+{
+	Stack solve
+	
+
+}
+
 
 int main()
 {
 
-	//char *str = "1 + 2 * 4 - 3";
+	char *str = "1 + 2 * 4 - 3";
 	//char *str = "1 + 2 * 4 - 3 * 2 - 1";
-	char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
+	//char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
 	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
@@ -155,7 +162,7 @@ int main()
 	//printQueue(inputQ);
 
 	Queue outQ = getOutQ(&inputQ);
-	printQueue(outQ)
+	printQueue(outQ);
 
 	return 0;
 }

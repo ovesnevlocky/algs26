@@ -20,4 +20,6 @@ void printMem(var a)
 			break;
 	
 	}
-}
+};
+
+
