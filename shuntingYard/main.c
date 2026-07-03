@@ -3,6 +3,8 @@
 #include "stack.h"
 #include "token.h"
 #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 
 
 bool isOp(char ch)
@@ -46,11 +48,14 @@ int digits(int a)
 void parseData(Queue *inputQ, char *str)
 {
 	char *ptr_s = str;
+	int idx = 0;
+	size_t len = strlen(str);
 	//Iterate until get to the null char
 	while(*ptr_s)
 	{
 		var tmp = {0};
-
+		if( idx > len)
+			break;
 		if(isOp(*ptr_s))
 		{
 			tmp.tag = CHAR;
@@ -61,8 +66,9 @@ void parseData(Queue *inputQ, char *str)
 			pushQueue(inputQ, tmp);
 			//increment for this char 
 			ptr_s++;
+			idx++;
 		}
-		else
+		else if( isdigit(*ptr_s))
 		{
 			int var = atoi(ptr_s);
 			tmp.tag = INT;
@@ -71,9 +77,13 @@ void parseData(Queue *inputQ, char *str)
 			int size = digits(var);
 			//increment as many as the var has digits
 			ptr_s += size;	
+			idx += size;
 		}
+		else
+			continue;
 		//skip a white space
 		ptr_s++;
+		idx++;
 	}
 }
 
@@ -140,30 +150,105 @@ Queue getOutQ(Queue *inputQ)
 	
 }
 
+int add(int a, int b)
+{
+	return a + b;
+}
+
+int sub(int a, int b)
+{
+	return a - b;
+}
+
+int multiply(int a, int b)
+{
+	if(a == 0 || b == 0)
+		return 0;
+
+	return a * b;
+}
+int devide(int a, int b)
+{
+	if(a == 0)
+		return 0;
+
+	if(b == 0)
+	{	
+		printf("deviding by 0 is not allowed");
+		return 0;
+	}
+
+
+	return a / b;
+}
+
+int calculate(char op, int a, int b)
+{
+	int ret;
+	switch(op)
+	{
+		case '+':
+		return add(a, b);
+		case '-':
+		return sub(a, b);
+		case '*':
+		return multiply(a, b);
+		case '/':
+		return devide(a, b);
+		default: 
+			printf("unkonown operator %c\n", op);
+			return -1;
+	}
+
+}
+
+
 int getSolution(Queue *outQ)
 {
-	Stack solve
-	
+	Stack solve;
+	stackInit(&solve);
 
+	while(!isQueueEmpty(outQ))
+	{
+		var popped = popQueue(outQ);
+		if(popped.tag == INT)
+		{
+			stackPush(&solve, popped);
+		}
+		else if(popped.tag == CHAR)
+		{
+			var operand1 = stackPop(&solve);
+			var operand2 = stackPop(&solve);
+			var varToPush = {0};
+			varToPush.tag = INT;
+			varToPush.data.var = calculate(popped.data.op.op, operand2.data.var, operand1.data.var);
+			stackPush(&solve, varToPush);
+		}
+	}
+
+	return solve.arr[0].data.var;
 }
 
 
 int main()
 {
 
-	char *str = "1 + 2 * 4 - 3";
+//	char *str = "1 + 2 * 4 - 3";
 	//char *str = "1 + 2 * 4 - 3 * 2 - 1";
-	//char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
+	char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
 	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
 	
 	parseData(&inputQ, str);
-	//printQueue(inputQ);
+	printQueue(inputQ);
 
 	Queue outQ = getOutQ(&inputQ);
 	printQueue(outQ);
 
+	int ret = getSolution(&outQ);
+	
+	printf("res %i\n",ret); 
 	return 0;
 }
 
