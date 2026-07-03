@@ -51,9 +51,13 @@ bool stackPush(Stack *s, var a)
 var stackPeek(Stack *s)
 {
 	var ret = {0};
-	ret.tag = UNINICIALIZED;
+	//if not a element is in the stack
 	if(s-> top < 0)
+	{
+		ret.tag = ARR_EMPTY;
 		return ret; 
+	}
+	 
 	return s->arr[s->top];
 }
 

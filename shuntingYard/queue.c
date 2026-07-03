@@ -84,4 +84,6 @@ void printQueue(const Queue q)
 		count--;
 		head++;
 	}
+
+	putchar('\n');
 }

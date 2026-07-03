@@ -4,6 +4,7 @@
 typedef enum varType
 {
 	UNINICIALIZED = 0,
+	ARR_EMPTY = 1,
 	INT = 10,
 	CHAR = 11
 }varType;

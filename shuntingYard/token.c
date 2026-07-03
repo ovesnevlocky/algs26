@@ -10,10 +10,10 @@ void printMem(var a)
 			puts("uninicialized");
 			break;
 		case INT:
-			printf("%i\n", a.data.var);
+			printf("%i ", a.data.var);
 			break;
 		case CHAR:
-			printf("%c prec: %i\n", a.data.op.op, a.data.op.precedence);
+			printf("%c ", a.data.op.op, a.data.op.precedence);
 			break;
 		default:
 			printf("unknown tag: %i\n", a.tag);

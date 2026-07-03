@@ -77,58 +77,85 @@ void parseData(Queue *inputQ, char *str)
 	}
 }
 
-Queue getSolveStack(Queue *inputQ)
+Queue getOutQ(Queue *inputQ)
 {
-	Queue ret;
-	queueInit(&ret);
-
-	Stack holdingS;
-	stackInit(&holdingS);
+	Stack holdS;
+	stackInit(&holdS);
 
 	Queue outQ;
 	queueInit(&outQ);
 	
 	while(!isQueueEmpty(inputQ))
 	{
-		var tmp = popQueue(inputQ);
+		var popped = popQueue(inputQ);
 			
-		if(tmp.tag == INT)
+		if(popped.tag == INT)
 		{
-			pushQueue(&outQ, tmp);		
+			pushQueue(&outQ, popped);		
 		}
-		else if(tmp.tag == CHAR)
+		else if(popped.tag == CHAR)
 		{
-			//first peekQueue 
-			//lets say a is the element about to push
-			//         b is the element on top of stack
-			//if a's precedence is higher than that of a,  push
-			//other wise pop and push to the outQ
-			//until the condition matches then push the a to holding stack
-			printf("hahaha");
-
+			//first peek inputQ
+			//lets say A is the element about to push
+			//         B is the element on top of stack
+			//if A's precedence is higher than that of B,  push
+			//otherwise pop and push to the outQ
+			//until the condition matches, if A's precedence becames higher
+			//than  that of B then stop and push A to the outQ 
+			var peekedOp = stackPeek(&holdS);
+			
+			if(peekedOp.tag == ARR_EMPTY)
+			{
+				stackPush(&holdS, popped);
+			}
+			else if(popped.data.op.precedence > peekedOp.data.op.precedence)
+			{
+					stackPush(&holdS, popped);
+			}
+			else
+			{
+				while(popped.data.op.precedence <= peekedOp.data.op.precedence)
+				{
+					var poppedOp = stackPop(&holdS);
+					pushQueue(&outQ, poppedOp);
+					peekedOp = stackPeek(&holdS);
+				}
+				stackPush(&holdS,  popped);
+			}
 		}
-	
 	}
 
-	return ret;
+	//pop all the operators from holding stack
+	while(!isStackEmpty(&holdS))
+	{
+		var popped = stackPop(&holdS);
+		if(popped.tag == UNINICIALIZED)
+		{
+			printf("uninicialized element was popped\n");
+		}
+		pushQueue(&outQ, popped);
+		
+	}
+	return outQ;
+	
 }
 
 
 int main()
 {
 
-	char *str = "1 + 2 + 3 * 23432 + 2345 + 654 + 23 + 2343 - 2 / 3";
-
+	//char *str = "1 + 2 * 4 - 3";
+	//char *str = "1 + 2 * 4 - 3 * 2 - 1";
+	char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
 	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
-
-	parseData(&inputQ, str);
 	
-	printQueue(inputQ);
+	parseData(&inputQ, str);
+	//printQueue(inputQ);
 
-
-	Queue solveS = getSolveStack(&inputQ);
+	Queue outQ = getOutQ(&inputQ);
+	printQueue(outQ)
 
 	return 0;
 }
