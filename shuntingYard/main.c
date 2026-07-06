@@ -12,9 +12,19 @@ bool isOp(char ch)
 	return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
+bool isOpenB(char ch)
+{
+	return ch == '(';
+}
+
+bool isCloseB(char ch)
+{
+	return ch == ')';
+}
+
 bool isBracket(char ch)
 {
-	return ch == '(' || ch == ')';
+	return isOpenB(ch) || isCloseB(ch);
 }
 
 int getPrecedence(char ch)
@@ -30,7 +40,7 @@ int getPrecedence(char ch)
 		default:
 		case '(':
 		case ')':
-			return 3;
+			return 0;
 			puts("unknown operator");
 			return -1;
 	}
@@ -110,6 +120,25 @@ void popUntil(var popped, var peekedOp, Stack *holdS, Queue *outQ)
 
 }
 
+void popToOpenBracket(Stack *holdS, Queue *outQ)
+{
+	var peeked = stackPeek(holdS);
+
+	while(!isOpenB(peeked.data.op.op))
+	{
+		var popped = stackPop(holdS);
+		
+		pushQueue(outQ, popped);
+		peeked = stackPeek(holdS);
+
+	}
+	//pop the close bracket
+	peeked = stackPop(holdS);
+	return;
+
+}
+
+
 Queue getOutQ(Queue *inputQ)
 {
 	Stack holdS;
@@ -117,7 +146,7 @@ Queue getOutQ(Queue *inputQ)
 
 	Queue outQ;
 	queueInit(&outQ);
-	
+	bool isInBracket = false;	
 	while(!isQueueEmpty(inputQ))
 	{
 		var popped = popQueue(inputQ);
@@ -136,14 +165,26 @@ Queue getOutQ(Queue *inputQ)
 			//until the condition matches, if A's precedence becames higher
 			//than  that of B then stop and push A to the outQ 
 			var peekedOp = stackPeek(&holdS);
-			
-			if(peekedOp.tag == ARR_EMPTY)
+			if(isOpenB(popped.data.op.op))
+			{	
+				//isInBracket = true;
+				stackPush(&holdS, popped);
+				continue;
+			}	
+			else if(isCloseB(popped.data.op.op))
+			{
+				popToOpenBracket(&holdS, &outQ);
+				//isInBracket = false;
+				continue;
+			}
+
+			if(peekedOp.tag == ARR_EMPTY ||  isOpenB(peekedOp.data.op.op)) 
 			{
 				stackPush(&holdS, popped);
 			}
 			else if(popped.data.op.precedence > peekedOp.data.op.precedence)
 			{
-					stackPush(&holdS, popped);
+				stackPush(&holdS, popped);
 			}
 			else
 			{
@@ -250,14 +291,11 @@ int getSolution(Queue *outQ)
 int main()
 {
 
-//	char *str = "1 + 2 * 4 - 3";
-	char *str = "1 + 2 * 4 - ( 3 * 2 ) - 1";
-	//char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
-	//char *str = "20 + 6 * 3 - 4 * 8 + 15 / 5 * 2 - 9 + 7 * 3 - 2 * 6 + 10 / 2 - 8 + 3 * 4";
+	char *str = "3 * ( 4 + 5 * ( 6 - 2 ) ) - 8 / ( 1 + 1 )";
+	
 	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
-	
 	parseData(&inputQ, str);
 	printQueue(inputQ);
 
