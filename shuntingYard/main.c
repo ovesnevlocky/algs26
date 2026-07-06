@@ -54,7 +54,7 @@ void parseData(Queue *inputQ, char *str)
 	while(*ptr_s)
 	{
 		var tmp = {0};
-		if( idx > len)
+		if(idx > len)
 			break;
 		if(isOp(*ptr_s))
 		{
@@ -68,7 +68,7 @@ void parseData(Queue *inputQ, char *str)
 			ptr_s++;
 			idx++;
 		}
-		else if( isdigit(*ptr_s))
+		else if(isdigit(*ptr_s))
 		{
 			int var = atoi(ptr_s);
 			tmp.tag = INT;
@@ -108,7 +108,7 @@ Queue getOutQ(Queue *inputQ)
 			//first peek inputQ
 			//lets say A is the element about to push
 			//         B is the element on top of stack
-			//if A's precedence is higher than that of B,  push
+			//if A's precedence is higher than that of B, push
 			//otherwise pop and push to the outQ
 			//until the condition matches, if A's precedence becames higher
 			//than  that of B then stop and push A to the outQ 
@@ -235,7 +235,8 @@ int main()
 
 //	char *str = "1 + 2 * 4 - 3";
 	//char *str = "1 + 2 * 4 - 3 * 2 - 1";
-	char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
+	//char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
+	char *str = "20 + 6 * 3 - 4 * 8 + 15 / 5 * 2 - 9 + 7 * 3 - 2 * 6 + 10 / 2 - 8 + 3 * 4";
 	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
