@@ -1,7 +1,7 @@
 
-bin/main : main.c queue.c queue.h stack.c stack.h token.h token.c
+bin/main : main.c queue.c queue.h stack.c stack.h token.h token.c utils.h utils.c
 	mkdir -p bin
-	cc -g main.c queue.c stack.c token.c  -o bin/main
+	cc -g main.c queue.c stack.c token.c utils.c  -o bin/main
 
 run:
 	./bin/main
