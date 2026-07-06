@@ -12,6 +12,10 @@ bool isOp(char ch)
 	return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
+bool isBracket(char ch)
+{
+	return ch == '(' || ch == ')';
+}
 
 int getPrecedence(char ch)
 {
@@ -24,6 +28,9 @@ int getPrecedence(char ch)
 		case '/':
 			return 2;
 		default:
+		case '(':
+		case ')':
+			return 3;
 			puts("unknown operator");
 			return -1;
 	}
@@ -56,7 +63,7 @@ void parseData(Queue *inputQ, char *str)
 		var tmp = {0};
 		if(idx > len)
 			break;
-		if(isOp(*ptr_s))
+		if(isOp(*ptr_s) || isBracket(*ptr_s))
 		{
 			tmp.tag = CHAR;
 			//get precedence according to operator
@@ -80,11 +87,27 @@ void parseData(Queue *inputQ, char *str)
 			idx += size;
 		}
 		else
-			continue;
+		{
+			printf("unkonown char %c\n", *ptr_s);
+			ptr_s++;
+			idx++;	
+		}		
 		//skip a white space
 		ptr_s++;
 		idx++;
 	}
+}
+
+void popUntil(var popped, var peekedOp, Stack *holdS, Queue *outQ)
+{
+	while(popped.data.op.precedence <= peekedOp.data.op.precedence)
+	{
+		var poppedOp = stackPop(holdS);
+		pushQueue(outQ, poppedOp);
+		peekedOp = stackPeek(holdS);
+	}
+	stackPush(holdS,  popped);
+
 }
 
 Queue getOutQ(Queue *inputQ)
@@ -124,13 +147,7 @@ Queue getOutQ(Queue *inputQ)
 			}
 			else
 			{
-				while(popped.data.op.precedence <= peekedOp.data.op.precedence)
-				{
-					var poppedOp = stackPop(&holdS);
-					pushQueue(&outQ, poppedOp);
-					peekedOp = stackPeek(&holdS);
-				}
-				stackPush(&holdS,  popped);
+				popUntil(popped, peekedOp, &holdS, &outQ);
 			}
 		}
 	}
@@ -234,9 +251,9 @@ int main()
 {
 
 //	char *str = "1 + 2 * 4 - 3";
-	//char *str = "1 + 2 * 4 - 3 * 2 - 1";
+	char *str = "1 + 2 * 4 - ( 3 * 2 ) - 1";
 	//char *str = "12 + 3 * 4 - 5 * 6 + 8 / 2 * 3 - 1 + 9 * 2 - 7 + 4 * 5";
-	char *str = "20 + 6 * 3 - 4 * 8 + 15 / 5 * 2 - 9 + 7 * 3 - 2 * 6 + 10 / 2 - 8 + 3 * 4";
+	//char *str = "20 + 6 * 3 - 4 * 8 + 15 / 5 * 2 - 9 + 7 * 3 - 2 * 6 + 10 / 2 - 8 + 3 * 4";
 	//queue for input string
 	Queue inputQ;
 	queueInit(&inputQ);
