@@ -19,10 +19,12 @@ int getPrecedence(char ch)
 		case '*':
 		case '/':
 			return 2;
-		default:
 		case '(':
 		case ')':
 			return 0;
+		case '^':
+			return 3;
+		default:
 			puts("unknown operator");
 			return -1;
 	}
@@ -147,14 +149,12 @@ Queue getOutQ(Queue *inputQ)
 			var peekedOp = stackPeek(&holdS);
 			if(isOpenB(popped.data.op.op))
 			{	
-				//isInBracket = true;
 				stackPush(&holdS, popped);
 				continue;
 			}	
 			else if(isCloseB(popped.data.op.op))
 			{
 				popToOpenBracket(&holdS, &outQ);
-				//isInBracket = false;
 				continue;
 			}
 
@@ -162,8 +162,14 @@ Queue getOutQ(Queue *inputQ)
 			{
 				stackPush(&holdS, popped);
 			}
-			else if(popped.data.op.precedence > peekedOp.data.op.precedence)
+			else if(isLeftToRight(popped.data.op.op) &&
+					popped.data.op.precedence > peekedOp.data.op.precedence)
 			{
+				stackPush(&holdS, popped);
+			}
+			else if(isRightToLeft(popped.data.op.op) &&
+					popped.data.op.precedence <= peekedOp.data.op.precedence)
+			{	
 				stackPush(&holdS, popped);
 			}
 			else
@@ -220,7 +226,8 @@ int main(int argc, char *argv)
 {
 	FILE *fp;
 	char *str;
-	str = "8 + 2 * ( 3 + 4 * ( 5 - 1 ) ) - ( 12 / ( 2 + 1 ) ) * 3 + ( -4 + 6 ) * 2";
+	//str = "8 + 2 * ( 3 + 4 * ( 5 - 1 ) ) - ( 12 / ( 2 + 1 ) ) * 3 + ( -4 + 6 ) * 2";
+	str = "2 ^ 2 ^ 3 + 4 * ( 3 ^ 2 - 5 ) - -2 ^ 3";
 	//queue for input string
 	Queue inputQ = parseData(str);
 	printQueue(inputQ);

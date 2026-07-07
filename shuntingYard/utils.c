@@ -4,10 +4,21 @@
 
 #include <stdbool.h>
 
+
+bool isRightToLeft(char ch)
+{
+	return ch == '^';
+}
+
+bool isLeftToRight(char ch)
+{
+	return ch == '+' || ch == '-' || ch == '*' || ch == '/';
+}
 bool isOp(char ch)
 {
-	return ch == '+' || ch == '-' || ch == '*' || ch =='/';
+	return isRightToLeft(ch) || isLeftToRight(ch);
 }
+
 
 bool isOpenB(char ch)
 {
@@ -81,6 +92,8 @@ int calculate(char op, int a, int b)
 		return multiply(a, b);
 		case '/':
 		return devide(a, b);
+		case '^':
+		return getExp(a, b);
 		default:
 		printf("unknown operator %c\n", op);
 		return -1;	
@@ -110,4 +123,23 @@ int cutS(const char *str, int *idx, char buff[64])
 		}
 	}
 
+}
+
+int getExp(int base, int exp)
+{
+	int ret = 1;
+
+	if(base == 1 || exp == 0)
+		return 1;
+
+	if(base == 0)
+		return 0;
+
+
+	for(int i = 0; i < exp; i++)
+	{
+		ret *= base;
+	}
+
+	return ret;
 }
