@@ -55,7 +55,6 @@ Queue parseData(const char *str)
 	//Iterate until get to the null char
 	while(cutS(str, &idx, buff) > 0)
 	{
-		puts(buff);
 		var tmp = {0};
 
 		if( ( buff[0] == '-' && isdigit(buff[1]) )
@@ -217,11 +216,11 @@ int getSolution(Queue *outQ)
 }
 
 
-int main()
+int main(int argc, char *argv)
 {
-
-	char *str = "-6 + 4 * -3 - 8 / -2 + -5 * 3";
-	
+	FILE *fp;
+	char *str;
+	str = "8 + 2 * ( 3 + 4 * ( 5 - 1 ) ) - ( 12 / ( 2 + 1 ) ) * 3 + ( -4 + 6 ) * 2";
 	//queue for input string
 	Queue inputQ = parseData(str);
 	printQueue(inputQ);
