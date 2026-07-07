@@ -30,20 +30,6 @@ int getPrecedence(char ch)
 	}
 }
 
-void getSubstring(int *idx, char *ptr_s, char *buff)
-{
-	size_t subIdx = 0;
-	while(*ptr_s != ' ')
-	{
-		buff[subIdx] = ptr_s[*idx];
-		subIdx++;
-		*idx += 1;
-		*ptr_s++;	
-	}
-
-	buff[subIdx] = '\0';
-	return;
-}
 
 Queue parseData(const char *str)
 {
@@ -158,18 +144,14 @@ Queue getOutQ(Queue *inputQ)
 				continue;
 			}
 
-			if(peekedOp.tag == ARR_EMPTY ||  isOpenB(peekedOp.data.op.op)) 
-			{
-				stackPush(&holdS, popped);
-			}
-			else if(isLeftToRight(popped.data.op.op) &&
+			if(peekedOp.tag == ARR_EMPTY
+		          ||  isOpenB(peekedOp.data.op.op)
+			  || ( isLeftToRight(popped.data.op.op) &&
 					popped.data.op.precedence > peekedOp.data.op.precedence)
-			{
-				stackPush(&holdS, popped);
-			}
-			else if(isRightToLeft(popped.data.op.op) &&
+			  || (isRightToLeft(popped.data.op.op) &&
 					popped.data.op.precedence <= peekedOp.data.op.precedence)
-			{	
+			                                                                          )
+			{
 				stackPush(&holdS, popped);
 			}
 			else
@@ -236,9 +218,11 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 
+		size_t size = 0;
+		size_t len = getline(&str, &size, fp);
 	}
-	size_t size = 0;
-	size_t len = getline(&str, &size, fp);
+	else 
+		str = "3 + 3 ^ 3 + ( 3 )";
 
 	//queue for input string
 	Queue inputQ = parseData(str);
@@ -250,8 +234,11 @@ int main(int argc, char *argv[])
 	int ret = getSolution(&outQ);
 	
 	printf("%i\n",ret); 
-	free(str);
-	fclose(fp);
+	if(fp)
+	{
+		free(str);
+		fclose(fp);
+	}
 	return 0;
 }
 
