@@ -227,7 +227,11 @@ int main(int argc, char *argv)
 	FILE *fp;
 	char *str;
 	//str = "8 + 2 * ( 3 + 4 * ( 5 - 1 ) ) - ( 12 / ( 2 + 1 ) ) * 3 + ( -4 + 6 ) * 2";
-	str = "2 ^ 2 ^ 3 + 4 * ( 3 ^ 2 - 5 ) - -2 ^ 3";
+	str = "10 + 3 ^ 2 * ( 4 - 1 ) ^ 2 - ( ( 8 / 2 ) ^ 2 + 6 ) / ( 1 + 1 ) + -3 * ( 2 ^ 3 - 5 )";
+	str = "12";
+	str = "( ( 4 ) )";
+	str = "2 ^ 2 ^ 2 ^ 2";
+	str = "-2 ^ 4";
 	//queue for input string
 	Queue inputQ = parseData(str);
 	printQueue(inputQ);
