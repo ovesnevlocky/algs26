@@ -28,50 +28,65 @@ int getPrecedence(char ch)
 	}
 }
 
-void parseData(Queue *inputQ, char *str)
+void getSubstring(int *idx, char *ptr_s, char *buff)
 {
-	char *ptr_s = str;
+	size_t subIdx = 0;
+	while(*ptr_s != ' ')
+	{
+		buff[subIdx] = ptr_s[*idx];
+		subIdx++;
+		*idx += 1;
+		*ptr_s++;	
+	}
+
+	buff[subIdx] = '\0';
+	return;
+}
+
+Queue parseData(const char *str)
+{
+	Queue inputQ;
+	queueInit(&inputQ);
+
 	int idx = 0;
 	size_t len = strlen(str);
+	char buff[64] = {0};
+	
 	//Iterate until get to the null char
-	while(*ptr_s)
+	while(cutS(str, &idx, buff) > 0)
 	{
+		puts(buff);
 		var tmp = {0};
-		if(idx > len)
-			break;
-		if(isOp(*ptr_s) || isBracket(*ptr_s))
+
+		if( ( buff[0] == '-' && isdigit(buff[1]) )
+		    || isdigit(buff[0]))
+		{
+			int var = atoi(buff);
+			tmp.tag = INT;
+			tmp.data.var = var; 
+			pushQueue(&inputQ, tmp);
+		}
+		else if( isOp(buff[0]) || isBracket(buff[0] ) )
 		{
 			tmp.tag = CHAR;
 			//get precedence according to operator
-			tmp.data.op.precedence = getPrecedence(*ptr_s);
+			tmp.data.op.precedence = getPrecedence(buff[0]);
 			//record the original operator
-			tmp.data.op.op = *ptr_s;
-			pushQueue(inputQ, tmp);
-			//increment for this char 
-			ptr_s++;
-			idx++;
-		}
-		else if(isdigit(*ptr_s))
-		{
-			int var = atoi(ptr_s);
-			tmp.tag = INT;
-			tmp.data.var = var; 
-			pushQueue(inputQ, tmp);
-			int size = digits(var);
-			//increment as many as the var has digits
-			ptr_s += size;	
-			idx += size;
+			tmp.data.op.op = buff[0];
+			pushQueue(&inputQ, tmp);
 		}
 		else
 		{
-			printf("unkonown char %c\n", *ptr_s);
-			ptr_s++;
-			idx++;	
-		}		
-		//skip a white space
-		ptr_s++;
-		idx++;
+			printf("unkonown char\n");
+		}
+
+		//reset the buff
+		memset(buff, 0, sizeof(buff));		
+		if(idx > len)
+			break;
+		
 	}
+	return inputQ;
 }
 
 void popUntil(var popped, var peekedOp, Stack *holdS, Queue *outQ)
@@ -205,12 +220,10 @@ int getSolution(Queue *outQ)
 int main()
 {
 
-	char *str = "3 * ( 4 + 5 * ( 6 - 2 ) ) - 8 / ( 1 + 1 )";
+	char *str = "-6 + 4 * -3 - 8 / -2 + -5 * 3";
 	
 	//queue for input string
-	Queue inputQ;
-	queueInit(&inputQ);
-	parseData(&inputQ, str);
+	Queue inputQ = parseData(str);
 	printQueue(inputQ);
 
 	Queue outQ = getOutQ(&inputQ);

@@ -23,6 +23,6 @@ int devide(int a, int b);
 
 int calculate(char op, int a, int b);
 
-
+int cutS(const char *str, int *idx, char buff[64]);
 
 #endif

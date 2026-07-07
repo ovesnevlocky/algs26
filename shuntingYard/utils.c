@@ -89,4 +89,25 @@ int calculate(char op, int a, int b)
 	return -1;
 }
 
+int cutS(const char *str, int *idx, char buff[64])
+{
+	int offset = 0;
+	if(str[*idx] == '\0')
+		return -1;
 
+	while(*str)
+	{
+		if(str[*idx] == ' ' || str[*idx] == '\0') 
+		{
+			buff[offset] = '\0';
+			*idx += 1;
+			return offset;
+		}
+		else
+		{
+			buff[offset++] = str[*idx];
+			*idx += 1;
+		}
+	}
+
+}
