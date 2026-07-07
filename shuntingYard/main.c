@@ -222,26 +222,36 @@ int getSolution(Queue *outQ)
 }
 
 
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
-	FILE *fp;
-	char *str;
-	//str = "8 + 2 * ( 3 + 4 * ( 5 - 1 ) ) - ( 12 / ( 2 + 1 ) ) * 3 + ( -4 + 6 ) * 2";
-	str = "10 + 3 ^ 2 * ( 4 - 1 ) ^ 2 - ( ( 8 / 2 ) ^ 2 + 6 ) / ( 1 + 1 ) + -3 * ( 2 ^ 3 - 5 )";
-	str = "12";
-	str = "( ( 4 ) )";
-	str = "2 ^ 2 ^ 2 ^ 2";
-	str = "-2 ^ 4";
+	FILE *fp = NULL;
+	char *str = NULL;
+	
+	if(argc > 1)
+	{
+		fp = fopen(argv[1], "r");
+		if(!fp)
+		{
+			printf("error in opening the file");
+			exit(1);
+		}
+
+	}
+	size_t size = 0;
+	size_t len = getline(&str, &size, fp);
+
 	//queue for input string
 	Queue inputQ = parseData(str);
-	printQueue(inputQ);
+	//printQueue(inputQ);
 
 	Queue outQ = getOutQ(&inputQ);
 	printQueue(outQ);
 
 	int ret = getSolution(&outQ);
 	
-	printf("res %i\n",ret); 
+	printf("%i\n",ret); 
+	free(str);
+	fclose(fp);
 	return 0;
 }
 
