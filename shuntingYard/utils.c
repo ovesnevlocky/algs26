@@ -12,11 +12,16 @@ bool isRightToLeft(char ch)
 
 bool isLeftToRight(char ch)
 {
-	return ch == '+' || ch == '-' || ch == '*' || ch == '/';
+	return ch == '+' || ch == '-' || ch == '*' || ch == '/' || isUnaryOp(ch);
+}
+
+bool isUnaryOp(char ch)
+{
+	return ch == '!';
 }
 bool isOp(char ch)
 {
-	return isRightToLeft(ch) || isLeftToRight(ch);
+	return isRightToLeft(ch) || isLeftToRight(ch) || isUnaryOp(ch);
 }
 
 
@@ -79,6 +84,24 @@ int devide(int a, int b)
 	return a/b;
 }
 
+int factorial(int a)
+{
+	if(a > 12)
+	{
+		printf("factorial more than 12 is bigger than MAX_INT\n");
+		return -1;
+	}
+	int factorials[13] = 
+	{
+		0, 1, 2, 6, 24, 120, 720, 5040, 40320,
+	        362880, 3628800, 39916800, 479001600       
+	};
+
+	
+	return factorials[a];
+	
+}
+
 int calculate(char op, int a, int b)
 {
 	int ret;
@@ -94,6 +117,8 @@ int calculate(char op, int a, int b)
 		return devide(a, b);
 		case '^':
 		return getExp(a, b);
+		case '!':
+		return factorial(a);
 		default:
 		printf("unknown operator %c\n", op);
 		return -1;	

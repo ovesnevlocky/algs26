@@ -5,6 +5,8 @@
 
 bool isOp(char ch);
 
+bool isUnaryOp(char ch);
+
 bool isLeftToRight(char ch);
 
 bool isRightToLeft(char ch);
@@ -30,5 +32,7 @@ int getExp(int base, int exp);
 int calculate(char op, int a, int b);
 
 int cutS(const char *str, int *idx, char buff[64]);
+
+int factorial(int a);
 
 #endif

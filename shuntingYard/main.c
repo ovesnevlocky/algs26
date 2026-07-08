@@ -24,6 +24,8 @@ int getPrecedence(char ch)
 			return 0;
 		case '^':
 			return 3;
+		case '!':
+			return 4;
 		default:
 			puts("unknown operator");
 			return -1;
@@ -189,13 +191,21 @@ int getSolution(Queue *outQ)
 		{
 			stackPush(&solve, popped);
 		}
-		else if(popped.tag == CHAR)
+		else if(popped.tag == CHAR && !isUnaryOp(popped.data.op.op))
 		{
 			var operand1 = stackPop(&solve);
 			var operand2 = stackPop(&solve);
 			var varToPush = {0};
 			varToPush.tag = INT;
 			varToPush.data.var = calculate(popped.data.op.op, operand2.data.var, operand1.data.var);
+			stackPush(&solve, varToPush);
+		}
+		else if(popped.tag == CHAR && isUnaryOp(popped.data.op.op))
+		{
+			var operand = stackPop(&solve);
+			var varToPush = {0};
+			varToPush.tag = INT;
+			varToPush.data.var = calculate(popped.data.op.op, operand.data.var, 0);
 			stackPush(&solve, varToPush);
 		}
 	}
@@ -222,7 +232,7 @@ int main(int argc, char *argv[])
 		size_t len = getline(&str, &size, fp);
 	}
 	else 
-		str = "3 + 3 ^ 3 + ( 3 )";
+		str = "5 ! / ( 2 + 3 ) + 2 ^ 3 - 4 !";
 
 	//queue for input string
 	Queue inputQ = parseData(str);
