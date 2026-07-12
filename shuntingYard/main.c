@@ -208,6 +208,11 @@ int getSolution(Queue *outQ)
 			varToPush.data.var = calculate(popped.data.op.op, operand.data.var, 0);
 			stackPush(&solve, varToPush);
 		}
+		else
+		{
+			fprintf(stderr, "error in getSolution\n");
+			continue;
+		}
 	}
 
 	return solve.arr[0].data.var;
