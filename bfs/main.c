@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	{
 		fname = argv[1];
 	}
+
 	bfs_t *b = createBfs();
 	b-> numNodes = loadGraph(b-> graph, fname);
 	

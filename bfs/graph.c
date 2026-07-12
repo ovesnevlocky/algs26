@@ -47,6 +47,9 @@ void freeGraph(bfs_t **g)
 	free( (*g) -> nodes);
 	(*g) -> nodes = NULL;
 
+	free( *g);
+	*g = NULL;
+
 	return;	
 
 }
@@ -125,6 +128,8 @@ int loadGraph(graph_t *g,const char *fname)
 			break;
 	}
 	
+	if(f)
+		fclose(f);	
 	return numNodes += 1;
 
 }
