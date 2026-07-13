@@ -66,17 +66,46 @@ graph_t* enlargeGraph(graph_t *g)
 	return g;
 }
 
-void printGraph(const graph_t *g)
+void printEdge(int from, int to)
 {
-	printf("digraph {\n");
-	for(int i = 0; i < g-> numEdges; i++)
+	printf("%i -- %i;\n", from, to);
+}
+
+void printGraph(const graph_t * g)
+{
+	int idxEdges = 0;
+	int count = 0;
+
+	printf("graph {\n");
+	
+	for(int i = 0; i  <g->numEdges ; i++)
 	{
-		printf("%i -> %i;\n", g->edges[i].from, g->edges[i].to);
+		edge_t e = g->edges[i];
+		
+		printEdge(e.from, e.to);	
 	}
+	
 	printf("}\n");
 
 }
 
+
+void printGraphNodes(const bfs_t *b)	
+{
+	int count = 0;
+	graph_t *g = b->graph;
+	printf("graph {\n");
+	for(int i = 0; i < b-> numNodes; i++)
+	{
+		node_t curr = b->nodes[i];
+		while(count < curr.edgeCount)
+		{
+			return;	
+		}
+	}
+	printf("}\n");
+
+}	
 
 void nodesInit(bfs_t *b)
 {
@@ -94,6 +123,7 @@ void addEdgeToNodes(bfs_t *b)
 	for(int i = 0; i < b-> graph->numEdges; i++)
 	{
 		int curr = b->graph->edges[i].from;
+		edge_t e = b->graph->edges[i];
 		if(b->nodes[curr].edgeStart == -1)
 		{
 			b->nodes[curr].edgeStart = i;
@@ -102,23 +132,32 @@ void addEdgeToNodes(bfs_t *b)
 	}
 }
 
+
 int loadGraph(graph_t *g,const char *fname)
 {
 	int numNodes = 0;
 	edge_t e = {0};
-	
+	edge_t e2 = {0};
 	FILE *f = fopen(fname, "r");
 	g-> edges = myMalloc(sizeof(edge_t) * MAX_SIZE);
+	int from, to;
 	while(f)
 	{
 		if(g-> numEdges >= g -> capacity)
 		{
 			enlargeGraph(g);
 		}
-		int r = fscanf(f,"%i %i\n", &e.from, &e.to);
+		
+		int r = fscanf(f,"%i %i\n", &from, &to);
+		e.from = from;
+		e.to = to;
+		e2.from = to;
+		e2.to = from;
 		if(r == 2)
 		{
 			g -> edges[g-> numEdges] = e;
+			g -> edges[g-> numEdges + 1] = e2;
+			g-> numEdges += 1;
 			g-> numEdges += 1;
 			if(e.from > numNodes || e.to > numNodes)
 				numNodes = e.from > e.to ? e.from : e.to;
@@ -134,6 +173,19 @@ int loadGraph(graph_t *g,const char *fname)
 
 }
 
+void printNodes(bfs_t *b)
+{
+	for(int i = 0; i < b->numNodes; i++)
+	{
+		printf("start: %i count: %i\n", b->nodes[i].edgeStart, b->nodes[i].edgeCount);
+	}
 
+}
 
+void printEdges(graph_t *g)
+{
+	for(int i = 0; i < g-> numEdges; i++)
+		printf("%i -> %i\n", g->edges[i].from, 	g->edges[i].to);
+
+}
 

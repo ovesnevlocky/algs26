@@ -16,3 +16,6 @@ vis: $(BIN)
 
 run: 
 	./main
+
+gdb:
+	gdb ./main

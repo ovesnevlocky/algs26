@@ -14,11 +14,13 @@ int main(int argc, char *argv[])
 
 	bfs_t *b = createBfs();
 	b-> numNodes = loadGraph(b-> graph, fname);
-	
+
+	printEdges(b->graph);	
 	nodesInit(b);
 
 	addEdgeToNodes(b);
-
+	
+	printNodes(b);
 	printGraph(b->graph);
 
 	freeGraph(&b);

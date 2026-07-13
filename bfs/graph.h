@@ -30,7 +30,7 @@ typedef struct
 {
 	//pointer to a graph
 	graph_t *graph;
-	//array of edges
+	//array of nodes 
 	node_t *nodes;
 	int numNodes;	
 }bfs_t;
@@ -39,17 +39,23 @@ void* myMalloc(size_t size);
 
 graph_t * allocateGraph(void);
 
-void freeGraph(bfs_t **g);
+bfs_t *createBfs(void);
 
 graph_t* enlargeGraph(graph_t *g);
 
-void printGraph(const graph_t *g);
-
-bfs_t *createBfs(void);
+int loadGraph(graph_t *g,const char *fname);
 
 void nodesInit(bfs_t *b);
 
 void addEdgeToNodes(bfs_t *b);
 
-int loadGraph(graph_t *g,const char *fname);
+void printGraph(const graph_t *g);
+
+void printGraphNodes(const bfs_t *b);
+
+void freeGraph(bfs_t **g);
+
+void printNodes(bfs_t *b);
+
+void printEdges(graph_t *g);
 #endif
