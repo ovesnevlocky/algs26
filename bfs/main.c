@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "graph.h"
+#include "radix.h"
 
 
 int main(int argc, char *argv[])
@@ -15,7 +16,13 @@ int main(int argc, char *argv[])
 	bfs_t *b = createBfs();
 	b-> numNodes = loadGraph(b-> graph, fname);
 
-	printEdges(b->graph);	
+	printEdges(b->graph);
+
+	
+	radixSort(b->graph->edges, b->graph->numEdges, b->numNodes);	
+	puts("after sorting");
+	printEdges(b->graph);
+
 	nodesInit(b);
 
 	addEdgeToNodes(b);
