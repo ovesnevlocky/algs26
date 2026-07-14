@@ -1,7 +1,7 @@
 C = cc
 CFLAGS = -g
 RM = rm -f
-BIN = main
+BIN = bin/main
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c = .o)
 
@@ -9,13 +9,18 @@ OBJ = $(SRC:.c = .o)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(BIN): $(OBJ)
+	mkdir -p bin
 	$(CC) $(CFLAGS) $^ -o $@
 
 vis: $(BIN)
 	./$(BIN) | dot -Tpdf > vis.pdf
 
 run: 
-	./main
+	./$(BIN)
 
 gdb:
-	gdb ./main
+	gdb ./$(BIN)
+
+clean: 
+	$(RM) -r bin *.o vis.pdf
+

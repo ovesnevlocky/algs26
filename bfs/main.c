@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
 
-	char *fname = "g.txt";
+	char *fname = "graphs/g.txt";
 
 	if(argc > 1)
 	{
