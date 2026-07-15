@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "graph.h"
+#include "queue.h"
 
 void *myMalloc(size_t size)
 {
@@ -203,7 +204,7 @@ void printEdges(graph_t *g)
 int *startBfs(bfs_t *b, int nodeId)
 {
 	int *ret = myMalloc(sizeof(int) * b->numNodes);
-	retIdx = 0;
+	int retIdx = 0;
 
 	int *count = myMalloc(sizeof(int) * b->numNodes);
 	Queue q;
@@ -212,22 +213,22 @@ int *startBfs(bfs_t *b, int nodeId)
 	pushQueue(&q, b->nodes[nodeId]);
 	node_t curNode = b->nodes[nodeId];
 	int idxInEdges = curNode.edgeStart;
-
+	edge_t e;
 	for(int i = 0; i < b->numNodes; i++)
 	{
 		
 		edge_t e = b->graph->edges[curNode.edgeStart];
 		nodeId = e.from;
-		curNode = popQueue(&queue);
+		curNode = popQueue(&q);
 		
-		if(curNode.isVisited == false)
+		if(curNode.isVisited == true)
 		{
 			continue;
 		}
 
 		while(count[nodeId] < curNode.edgeCount)
 		{
-			e = graph->edges[idxInEdges];
+			e = b ->graph->edges[idxInEdges];
  
 			ret[retIdx++] = e.to;
 			count[e.from] += 1;
@@ -247,8 +248,10 @@ int *startBfs(bfs_t *b, int nodeId)
 
 
 
+	for(int i = 0; i < retIdx; i++)
+		printf("%i ", ret[i]);
 
-
+	putchar('\n');
 
 	free(count);
 	count = NULL;

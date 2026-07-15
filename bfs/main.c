@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 	addEdgeToNodes(b);
 	
 //	printNodes(b);
-	printGraphNodes(b);
-
+//	printGraphNodes(b);
+	int *ret = startBfs(b, 0);
 	freeGraph(&b);
 
 }
