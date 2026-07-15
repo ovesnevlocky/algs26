@@ -1,4 +1,4 @@
-C = cc
+CC = cc
 CFLAGS = -g
 RM = rm -f
 BIN = bin/main
@@ -13,10 +13,10 @@ $(BIN): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@
 
 vis: $(BIN)
-	./$(BIN) | dot -Tpdf > vis.pdf
+	./$(BIN) $(ARGS) | dot -Tpdf > vis.pdf
 
-run: 
-	./$(BIN)
+run: $(BIN) 
+	./$(BIN) $(ARGS)
 
 gdb:
 	gdb ./$(BIN)

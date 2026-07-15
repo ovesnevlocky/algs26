@@ -92,19 +92,30 @@ void printGraph(const graph_t * g)
 
 void printGraphNodes(const bfs_t *b)	
 {
-	int count = 0;
+	int currNode = 0;
 	graph_t *g = b->graph;
 	printf("graph {\n");
-	for(int i = 0; i < b-> numNodes; i++)
+	
+	int *count = myMalloc(sizeof(int)* b->numNodes);
+
+	for(int i = 0; i < b-> graph->numEdges; i++)
 	{
-		node_t curr = b->nodes[i];
-		while(count < curr.edgeCount)
+		edge_t e = b->graph->edges[i];
+
+		if(count[e.from] < b->nodes[e.from].edgeCount
+		  &&  count[e.to] < b->nodes[e.to].edgeCount )
+			
 		{
-			return;	
+			printEdge(g->edges[i].from, g->edges[i].to);
+			
+			count[e.from] += 1;			
+			count[e.to] += 1;
 		}
+
 	}
 	printf("}\n");
-
+	
+	free(count);
 }	
 
 void nodesInit(bfs_t *b)
