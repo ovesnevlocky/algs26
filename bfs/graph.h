@@ -58,4 +58,7 @@ void freeGraph(bfs_t **g);
 void printNodes(bfs_t *b);
 
 void printEdges(graph_t *g);
+
+int *startBfs(bfs_t *b, int nodeId);
+
 #endif

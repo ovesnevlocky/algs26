@@ -200,3 +200,63 @@ void printEdges(graph_t *g)
 
 }
 
+int *startBfs(bfs_t *b, int nodeId)
+{
+	int *ret = myMalloc(sizeof(int) * b->numNodes);
+	retIdx = 0;
+
+	int *count = myMalloc(sizeof(int) * b->numNodes);
+	Queue q;
+	queueInit(&q);
+
+	pushQueue(&q, b->nodes[nodeId]);
+	node_t curNode = b->nodes[nodeId];
+	int idxInEdges = curNode.edgeStart;
+
+	for(int i = 0; i < b->numNodes; i++)
+	{
+		
+		edge_t e = b->graph->edges[curNode.edgeStart];
+		nodeId = e.from;
+		curNode = popQueue(&queue);
+		
+		if(curNode.isVisited == false)
+		{
+			continue;
+		}
+
+		while(count[nodeId] < curNode.edgeCount)
+		{
+			e = graph->edges[idxInEdges];
+ 
+			ret[retIdx++] = e.to;
+			count[e.from] += 1;
+			//push the visited node to the queue
+			pushQueue(&q, b->nodes[e.to]);
+			count[e.to] += 1;
+			//get the next edge
+			idxInEdges++;
+
+		} 
+		b->nodes[nodeId].isVisited = true;	
+		
+		
+			
+		
+	}	
+
+
+
+
+
+
+	free(count);
+	count = NULL;
+
+
+	return ret;
+
+}
+
+
+
