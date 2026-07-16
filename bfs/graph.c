@@ -241,10 +241,6 @@ int *startBfs(bfs_t *b, int nodeId)
 		} 
 	}	
 
-	for(int i = 0; i < retIdx; i++)
-		printf("%i ", ret[i]);
-
-	putchar('\n');
 
 	free(count);
 	count = NULL;
