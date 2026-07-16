@@ -19,8 +19,10 @@ run: $(BIN)
 	./$(BIN) $(ARGS)
 
 gdb:
-	gdb ./$(BIN)
+	gdb -iex "set debuginfod enabled off"  ./$(BIN)
 
 clean: 
 	$(RM) -r bin *.o vis.pdf
 
+valg:
+	valgrind ./$(BIN)

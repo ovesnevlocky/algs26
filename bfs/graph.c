@@ -205,48 +205,41 @@ int *startBfs(bfs_t *b, int nodeId)
 {
 	int *ret = myMalloc(sizeof(int) * b->numNodes);
 	int retIdx = 0;
-
+	ret[retIdx++] = nodeId;
 	int *count = myMalloc(sizeof(int) * b->numNodes);
 	Queue q;
 	queueInit(&q);
 
 	pushQueue(&q, b->nodes[nodeId]);
 	node_t curNode = b->nodes[nodeId];
+	b->nodes[nodeId].isVisited = true;
+
 	int idxInEdges = curNode.edgeStart;
 	edge_t e;
+	
 	for(int i = 0; i < b->numNodes; i++)
 	{
 		
+		curNode = popQueue(&q);
 		edge_t e = b->graph->edges[curNode.edgeStart];
 		nodeId = e.from;
-		curNode = popQueue(&q);
-		
-		if(curNode.isVisited == true)
-		{
-			continue;
-		}
+		idxInEdges = curNode.edgeStart;	
 
 		while(count[nodeId] < curNode.edgeCount)
 		{
 			e = b ->graph->edges[idxInEdges];
- 
-			ret[retIdx++] = e.to;
-			count[e.from] += 1;
+			if(b->nodes[e.to].isVisited == false) 
+			{
+				ret[retIdx++] = e.to;
+				pushQueue(&q, b->nodes[e.to]);
+				b->nodes[e.to].isVisited = true;
+			}
 			//push the visited node to the queue
-			pushQueue(&q, b->nodes[e.to]);
-			count[e.to] += 1;
 			//get the next edge
+			count[e.from] += 1;
 			idxInEdges++;
-
 		} 
-		b->nodes[nodeId].isVisited = true;	
-		
-		
-			
-		
 	}	
-
-
 
 	for(int i = 0; i < retIdx; i++)
 		printf("%i ", ret[i]);
@@ -255,7 +248,6 @@ int *startBfs(bfs_t *b, int nodeId)
 
 	free(count);
 	count = NULL;
-
 
 	return ret;
 

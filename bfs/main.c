@@ -31,5 +31,6 @@ int main(int argc, char *argv[])
 //	printGraphNodes(b);
 	int *ret = startBfs(b, 0);
 	freeGraph(&b);
+	free(ret);
 
 }
