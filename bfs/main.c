@@ -2,6 +2,7 @@
 #include "graph.h"
 #include "radix.h"
 #include "queue.h"
+#include "bfs.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,11 +23,15 @@ int main(int argc, char *argv[])
 	
 	//printGraphNodes(b);
 	int *ret = startBfs(b, 0);
-	for(int i = 0; i < b->numNodes; i++)
-		printf("%i ", ret[i]);
+	if(ret != NULL)
+	{
+		for(int i = 0; i < b->numNodes; i++)
+			printf("%i ", ret[i]);
+		putchar('\n');
+	}
 
-	putchar('\n');
-	freeGraph(&b);
-	free(ret);
+	freeBfs(&b);
+	if(ret)
+		free(ret);
 
 }

@@ -2,6 +2,7 @@
 #include "queue.h"
 #include <string.h>
 
+#include "bfs.h"
 
 #include "graph.h"
 

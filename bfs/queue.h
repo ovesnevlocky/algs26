@@ -5,7 +5,7 @@
 
 
 #include "stdbool.h"
-
+#include "bfs.h"
 #include "graph.h"
 typedef struct
 {
