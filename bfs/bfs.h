@@ -1,19 +1,12 @@
 #ifndef BFS_H
 #define BFS_H
 
+#include "node.h"
 #include "queue.h"
 #include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-typedef struct
-{
-	int edgeStart;
-	int edgeCount;
-	bool isVisited;
-}node_t;
 
 typedef struct
 {

@@ -134,7 +134,7 @@ int *startBfs(bfs_t *b, int nodeId)
                 idxInEdges = curNode.edgeStart;
 
                 while(count[nodeId] < curNode.edgeCount)
-                {
+               {
                          e = b ->graph->edges[idxInEdges];
                          if(b->nodes[e.to].isVisited == false)
                          {
@@ -146,7 +146,7 @@ int *startBfs(bfs_t *b, int nodeId)
                          //get the next edge
                          count[e.from] += 1;
                          idxInEdges++;
-                 }
+                }
          }
 
 

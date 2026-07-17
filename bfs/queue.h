@@ -4,6 +4,7 @@
 #define MAX_SIZE 100
 
 
+#include "node.h"
 #include "stdbool.h"
 #include "bfs.h"
 #include "graph.h"

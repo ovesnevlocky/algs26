@@ -1,13 +1,12 @@
 #include <stdio.h>
-#include "graph.h"
 #include "radix.h"
-#include "queue.h"
 #include "bfs.h"
+#include "dfs.h"
 
 int main(int argc, char *argv[])
 {
 
-	char *fname = "graphs/big.txt";
+	char *fname = "graphs/g.txt";
 
 	if(argc > 1)
 		fname = argv[1];
@@ -22,16 +21,19 @@ int main(int argc, char *argv[])
 	addEdgeToNodes(b);
 	
 	//printGraphNodes(b);
-	int *ret = startBfs(b, 0);
+	
+	//int *ret = startBfs(b, 0);
+	int *ret = startDfs((dfs_t*)b,0);
+ 
 	if(ret != NULL)
 	{
 		for(int i = 0; i < b->numNodes; i++)
 			printf("%i ", ret[i]);
 		putchar('\n');
+
+		free(ret);
 	}
 
 	freeBfs(&b);
-	if(ret)
-		free(ret);
 
 }
