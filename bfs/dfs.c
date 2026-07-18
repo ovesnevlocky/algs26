@@ -70,7 +70,6 @@ int *startDfs(dfs_t *d, int startNode)
 				{
 					if(d->nodes[e.from].isVisited == false)
 					{
-						ret[retIdx++] = e.from;
 						d->nodes[e.from].isVisited = true;
 					}
 					break;
