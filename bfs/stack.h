@@ -1,8 +1,7 @@
 #ifndef STACK_H_
 #define STACK_H_
 
-#define ARR_EMPTY -1
-#define MAX_SIZE 100
+#define ARR_EMPTY (-1)
 #include <stdbool.h>
 #include "bfs.h"
 #include "graph.h"

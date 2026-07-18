@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
  
 	if(ret != NULL)
 	{
-		for(int i = 0; i < b->numNodes; i++)
+		for(int i = 0; ret[i] != -1; i++)
 			printf("%i ", ret[i]);
 		putchar('\n');
 

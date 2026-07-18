@@ -31,6 +31,7 @@ bool stackPush(Stack *s, node_t a)
 	if(isStackFull(s))
 	{
 		printf("stack is full MAX: %i, current %i\n", MAX_SIZE, s->count);
+		exit(-1);
 		return false;
 	}
 	

@@ -2,65 +2,87 @@
 #include "stack.h"
 #include "stdlib.h"
 #include "graph.h"
+#include <stdbool.h>
 
+static int inicializeArr(int *a, int cap)
+{
+	for(int i = 0; i < cap + 30; i++)
+		a[i] = -1;
+	return 0;
+}
+
+static bool isExplored(int numEdges, int count)
+{
+	return count >= numEdges;
+
+}
 
 int *startDfs(dfs_t *d, int startNode)
 {
 
 	int *ret = myMalloc(sizeof(int) * (d->numNodes + 100));
-	int retIdx = 0;
-	ret[retIdx++] = startNode;
+	
+	int retIdx = inicializeArr(ret, d->numNodes);
+	ret[retIdx++] = startNode;	
 	int *count = myMalloc(sizeof(int) * d->numNodes);
 	Stack s;
 	stackInit(&s);
-	
-	stackPush(&s, d->nodes[startNode]);
-	node_t curNode = d->nodes[startNode];
-	d->nodes[startNode].isVisited = true;
-	int idxInEdges = curNode.edgeStart;
-	count[startNode] += 1;
+	int idxInEdges;	
 	edge_t e;
+	node_t next;
 	
 	for(int i = 0; i < d -> numNodes; i++)
 	{
-		node_t peeked = stackPeek(&s);
-		idxInEdges = peeked.edgeStart;	
-		e = d->graph->edges[idxInEdges];
-		while(peeked.edgeCount >1 )
+		next = (i == 0) ? d->nodes[startNode] : stackPop(&s);
+		idxInEdges = next.edgeStart;
+		if(retIdx >= d->numNodes)
+			break;
+		while(next.edgeCount >1 )
 		{
 			
 			e = d-> graph->edges[idxInEdges];
-
-			if(d->nodes[e.to].isVisited == true 
-			&& count[e.to] >= d-> nodes[e.to].edgeCount)
-			{
-				node_t n = stackPop(&s);
-				break;
-			}
 			
+			if(d->nodes[e.to].isVisited == false)
+			{
+				if(d->nodes[e.from].isVisited == false)
+					stackPush(&s, d->nodes[e.from]);
+				ret[retIdx++] = e.to;
+				
+				d->nodes[e.from].isVisited = true;
+				next = d->nodes[e.to];
+				count[e.from] += 1;
+				
+				idxInEdges = next.edgeStart;
+				continue;
+			
+			}
+			if(next.edgeCount == 1)
+			{
+				ret[retIdx++] = e.from;
+				break;	
+			}
+
 			if(d->nodes[e.to].isVisited == true)
 			{
-				count[e.to] += 1;
 				idxInEdges++;
-				continue;
+				count[e.from] += 1;
+				if(e.from != d->graph->edges[idxInEdges].from)
+				{
+					if(d->nodes[e.from].isVisited == false)
+					{
+						ret[retIdx++] = e.from;
+						d->nodes[e.from].isVisited = true;
+					}
+					break;
+				}
+
 			}
-			
-			
-			stackPush(&s, d->nodes[e.to]);
-			ret[retIdx++] = e.to;
-			d->nodes[e.to].isVisited = true;
-			peeked = stackPeek(&s);		
-			idxInEdges = peeked.edgeStart;	
-			count[e.to] += 1;
-	
+
+
 		}
 		
 	}
 
-
-		
-	
-	
 	free(count);
 	count = NULL;
 	return ret; 
