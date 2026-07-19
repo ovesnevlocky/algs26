@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
 
-	char *fname = "graphs/star.txt";
+	char *fname = "graphs/gP.txt";
 
 	if(argc > 1)
 		fname = argv[1];
@@ -23,15 +23,15 @@ int main(int argc, char *argv[])
 	printGraphNodes(b);
 	
 	//int *ret = startBfs(b, 0);
-	int *ret = startDfs((dfs_t*)b,0);
+//	int *ret = startDfs((dfs_t*)b,0);
  
-	if(ret != NULL)
+//	if(ret != NULL)
 	{
-	//	for(int i = 0; ret[i] != -1; i++)
-	//		printf("%i ", ret[i]);
-	//	putchar('\n');
+//		for(int i = 0; ret[i] != -1; i++)
+//			printf("%i ", ret[i]);
+//		putchar('\n');
 
-		free(ret);
+//		free(ret);
 	}
 
 	freeBfs(&b);

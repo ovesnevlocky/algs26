@@ -17,6 +17,12 @@ static bool isExplored(int numEdges, int count)
 
 }
 
+
+static bool isDegreeOne(int edgeCount)
+{
+	return edgeCount == 1;	
+}
+
 int *startDfs(dfs_t *d, int startNode)
 {
 
@@ -37,49 +43,39 @@ int *startDfs(dfs_t *d, int startNode)
 		idxInEdges = next.edgeStart;
 		if(retIdx >= d->numNodes)
 			break;
-		while( 1 )
+		while(retIdx < d->numNodes)
 		{
 			
 			e = d-> graph->edges[idxInEdges];
-			
+			if(e.from != d->graph->edges[next.edgeStart].from)
+				break;	
 			if(d->nodes[e.to].isVisited == false)
 			{
 				if(d->nodes[e.from].isVisited == false 
 				&& d->nodes[e.to].edgeCount > 1)
 				{
 					stackPush(&s, d->nodes[e.from]);
-					next = d->nodes[e.to];
 				}
-				else if(d->nodes[e.to].edgeCount == 1)
+				else if(isDegreeOne(d->nodes[e.to].edgeCount))
 				{
+					//meaning has no node after this e.to(list in a tree)
+					//these nodes dont have to be pushed to the stack
 					ret[retIdx++] = e.to;
 					idxInEdges++;
 					count[e.from] += 1;
 					d->nodes[e.to].isVisited = true;
-					continue;	
+					continue;
 				}	
-				ret[retIdx++] = e.to;
-				
-				d->nodes[e.from].isVisited = true;
-				
 				next = d->nodes[e.to];
-				count[e.from] += 1;
-				
-				idxInEdges = next.edgeStart;
-				continue;
-			
-			}
-			if(next.edgeCount == 1)
-			{
-				ret[retIdx++] = e.from;
+				ret[retIdx++] = e.to;
 				d->nodes[e.from].isVisited = true;
-				break;	
+				count[e.from] += 1;
+				idxInEdges = next.edgeStart;
 			}
-
-			if(d->nodes[e.to].isVisited == true)
+			else if(d->nodes[e.to].isVisited == true)
 			{
 				idxInEdges++;
-				count[e.from] += 1;
+				//count[e.from] += 1;
 				if(e.from != d->graph->edges[idxInEdges].from)
 				{
 					if(d->nodes[e.from].isVisited == false)
@@ -90,14 +86,15 @@ int *startDfs(dfs_t *d, int startNode)
 				}
 
 			}
-
-
+			//if we check all edges of this node
+			if(count[e.from] >= d->nodes[e.from].edgeCount
+			|| retIdx >= d->numNodes) 
+			{
+				break;
+			}
 		}
-		
 	}
-
 	free(count);
 	count = NULL;
 	return ret; 
-
 }

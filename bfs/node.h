@@ -10,6 +10,7 @@ typedef struct
 	int edgeStart;
 	int edgeCount;
 	bool isVisited;
+	int nodeId;
 }node_t;
 
 

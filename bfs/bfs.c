@@ -78,7 +78,7 @@ void nodesInit(bfs_t *b)
 
 void addEdgeToNodes(bfs_t *b)
 {
-	
+	int nodeId = 0;	
         for(int i = 0; i < b-> graph->numEdges; i++)
         {
                 int curr = b->graph->edges[i].from;
@@ -86,6 +86,8 @@ void addEdgeToNodes(bfs_t *b)
                 if(b->nodes[curr].edgeStart == -1)
                 {
                         b->nodes[curr].edgeStart = i;
+			b->nodes[curr].nodeId = nodeId;
+			nodeId++;
                 }
                 b->nodes[curr].edgeCount += 1;
         }
