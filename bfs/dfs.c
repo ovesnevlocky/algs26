@@ -37,18 +37,31 @@ int *startDfs(dfs_t *d, int startNode)
 		idxInEdges = next.edgeStart;
 		if(retIdx >= d->numNodes)
 			break;
-		while(next.edgeCount >1 )
+		while( 1 )
 		{
 			
 			e = d-> graph->edges[idxInEdges];
 			
 			if(d->nodes[e.to].isVisited == false)
 			{
-				if(d->nodes[e.from].isVisited == false)
+				if(d->nodes[e.from].isVisited == false 
+				&& d->nodes[e.to].edgeCount > 1)
+				{
 					stackPush(&s, d->nodes[e.from]);
+					next = d->nodes[e.to];
+				}
+				else if(d->nodes[e.to].edgeCount == 1)
+				{
+					ret[retIdx++] = e.to;
+					idxInEdges++;
+					count[e.from] += 1;
+					d->nodes[e.to].isVisited = true;
+					continue;	
+				}	
 				ret[retIdx++] = e.to;
 				
 				d->nodes[e.from].isVisited = true;
+				
 				next = d->nodes[e.to];
 				count[e.from] += 1;
 				
@@ -59,6 +72,7 @@ int *startDfs(dfs_t *d, int startNode)
 			if(next.edgeCount == 1)
 			{
 				ret[retIdx++] = e.from;
+				d->nodes[e.from].isVisited = true;
 				break;	
 			}
 
