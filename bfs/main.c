@@ -6,7 +6,6 @@
 int main(int argc, char *argv[])
 {
 
-	printf("test\n");
 	char *fname = "graphs/gP.txt";
 
 	if(argc > 1)
