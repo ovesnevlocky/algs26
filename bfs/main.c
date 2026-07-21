@@ -2,6 +2,7 @@
 #include "radix.h"
 #include "bfs.h"
 #include "dfs.h"
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,10 +21,17 @@ int main(int argc, char *argv[])
 
 	addEdgeToNodes(b);
 	
-//	printGraphNodes(b);
-	
-	//int *ret = startBfs(b, 0);
-	int *ret = startDfs((dfs_t*)b,0);
+	int *ret = NULL;	
+	switch(argv[2][0])
+	{
+		case 'v':
+		printGraphNodes(b);
+		break;
+		default:
+		ret = startDfs((dfs_t*)b, 0);
+		break;
+
+	}
  
 	if(ret != NULL)
 	{
