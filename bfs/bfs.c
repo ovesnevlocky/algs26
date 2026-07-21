@@ -86,7 +86,7 @@ void addEdgeToNodes(bfs_t *b)
                 if(b->nodes[curr].edgeStart == -1)
                 {
                         b->nodes[curr].edgeStart = i;
-			b->nodes[curr].nodeId = nodeId;
+			b->nodes[curr].nodeId = e.from;
 			nodeId++;
                 }
                 b->nodes[curr].edgeCount += 1;
