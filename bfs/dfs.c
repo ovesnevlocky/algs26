@@ -88,17 +88,12 @@ int *startDfs(dfs_t *d, int startNode)
 			{
 				count[e.from] += 1;
 				offset = count[e.from];
-				//if(d->nodes[e.from].isVisited == false)
-				//{
-				//	ret[retIdx++] = e.from;
-				//	count[e.from] += 1;
-				//	offset = count[e.from];
-				//	d->nodes[e.from].isVisited = true;
-				//}
 			}
 		}
 		if(retIdx >= d->numNodes)
 			break;
+		if(count[next.nodeId] >= next.edgeCount)
+			d->nodes[next.nodeId].isVisited = true;
 	}
 	free(count);
 	count = NULL;

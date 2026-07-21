@@ -2,11 +2,12 @@
 #include "radix.h"
 #include "bfs.h"
 #include "dfs.h"
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
 
-	char *fname = "graphs/hard.txt";
+	char *fname = "graphs/500.txt";
 
 	if(argc > 1)
 		fname = argv[1];
@@ -22,8 +23,16 @@ int main(int argc, char *argv[])
 	
 	//printGraphNodes(b);
 	int *ret = NULL;	
-	//ret = startBfs(b, 0);
-	ret = startDfs((dfs_t*)b,0);
+	switch(argv[2][0])
+	{
+		case 'v':
+		printGraphNodes(b);
+		break;
+		default:
+		ret = startDfs((dfs_t*)b, 0);
+		break;
+
+	}
  
 	if(ret != NULL)
 	{

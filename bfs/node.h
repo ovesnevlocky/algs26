@@ -2,7 +2,6 @@
 #define NODE_H
 
 #include <stdbool.h>
-#define MAX_SIZE 100
 
 typedef struct
 {
