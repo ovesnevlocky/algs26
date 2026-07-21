@@ -41,7 +41,7 @@ int *startDfs(dfs_t *d, int startNode)
 	edge_t e;
 	node_t next;
 	int offset = 0;	
-	for(int i = 0; i < d -> numNodes; i++)
+	while(retIdx < d->numNodes)	
 	{
 		node_t peeked = stackPeek(&s);
 		if(count[peeked.nodeId] >= peeked.edgeCount)

@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
 
-	char *fname = "graphs/hard.txt";
+	char *fname = "graphs/500.txt";
 
 	if(argc > 1)
 		fname = argv[1];
@@ -28,16 +28,15 @@ int main(int argc, char *argv[])
 		printGraphNodes(b);
 		break;
 		default:
-		ret = startDfs((dfs_t*)b, 0);
+		ret = startBfs(b, 0);
 		break;
 
 	}
- 
+	
 	if(ret != NULL)
 	{
-		for(int i = 0; ret[i] != -1; i++)
-			printf("%i ", ret[i]);
-		putchar('\n');
+		for(int i = 0;i <  b->numNodes; i++)
+			printf("%i\n", ret[i]);
 
 		free(ret);
 	}
