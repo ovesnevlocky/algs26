@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
 
-	char *fname = "graphs/big.txt";
+	char *fname = "graphs/hard.txt";
 
 	if(argc > 1)
 		fname = argv[1];
@@ -20,10 +20,10 @@ int main(int argc, char *argv[])
 
 	addEdgeToNodes(b);
 	
-//	printGraphNodes(b);
-	
-	//int *ret = startBfs(b, 0);
-	int *ret = startDfs((dfs_t*)b,0);
+	//printGraphNodes(b);
+	int *ret = NULL;	
+	//ret = startBfs(b, 0);
+	ret = startDfs((dfs_t*)b,0);
  
 	if(ret != NULL)
 	{
