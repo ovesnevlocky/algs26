@@ -39,6 +39,11 @@ graph_t* enlargeGraph(graph_t *g)
 	return g;
 }
 
+void printEdges(edge_t *edges, int numEdge)
+{
+	for(int i = 0; i < numEdge; i++)
+		printf("%i -> %i\n", edges[i].from, edges[i].to);
+}
 
 int loadGraph(graph_t *g,const char *fname)
 {

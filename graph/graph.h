@@ -29,7 +29,7 @@ int loadGraph(graph_t *g,const char *fname);
 
 void printGraph(const graph_t *g);
 
-void printEdges(graph_t *g);
+void printEdges(edge_t *edges, int numEdge);
 
 
 #endif
