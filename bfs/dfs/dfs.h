@@ -3,7 +3,7 @@
 
 
 #include "node.h"
-#include "graph.h"
+#include "../graph.h"
 
 typedef struct
 {

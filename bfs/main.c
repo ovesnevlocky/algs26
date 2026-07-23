@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "radix.h"
-#include "bfs.h"
-#include "dfs.h"
+#include "./bfs/bfs.h"
+#include "./dfs/dfs.h"
 #include <string.h>
+
+
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +30,7 @@ int main(int argc, char *argv[])
 		printGraphNodes(b);
 		break;
 		default:
-		ret = startBfs(b, 0);
+		ret = startDfs((dfs_t*)b, 76);
 		break;
 
 	}

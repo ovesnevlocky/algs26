@@ -2,6 +2,7 @@
 #define GRAPH_H
 #include <stdlib.h>
 #include <stdbool.h>
+#include "defines.h"
 
 typedef struct
 {

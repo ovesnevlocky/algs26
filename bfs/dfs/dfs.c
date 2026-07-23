@@ -1,9 +1,9 @@
-#include "dfs.h"
 #include "stack.h"
-#include "stdlib.h"
-#include "graph.h"
+#include <stdlib.h>
+#include "../graph.h"
 #include <stdbool.h>
-
+#include <stdio.h>
+#include "dfs.h"
 static int inicializeArr(int *a, int cap)
 {
 	for(int i = 0; i < cap + 30; i++)
@@ -24,7 +24,10 @@ static bool isDegreeOne(int edgeCount)
 
 int *startDfs(dfs_t *d, int startNode)
 {
-
+	if(startNode > d->numNodes)
+	{
+		fprintf(stderr, "biggest possible startNode is numNodes: got %i but numNodes %i\n", startNode, d->numNodes);
+	}
 	int *ret = myMalloc(sizeof(int) * (d->numNodes + 100));
 	
 	int retIdx = inicializeArr(ret, d->numNodes);

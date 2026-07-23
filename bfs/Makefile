@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -g
 RM = rm -f
 BIN = bin/main
-SRC = $(wildcard *.c)
+SRC = $(wildcard *.c) $(wildcard ./bfs/*.c) $(wildcard ./dfs/*.c)
 OBJ = $(SRC:.c = .o)
 
 %.o: %.c 

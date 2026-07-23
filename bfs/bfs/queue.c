@@ -4,7 +4,7 @@
 
 #include "bfs.h"
 
-#include "graph.h"
+#include "../graph.h"
 
 void printhai()
 {

@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "graph.h"
-#include "queue.h"
 
 void *myMalloc(size_t size)
 {

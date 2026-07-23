@@ -1,13 +1,10 @@
 #ifndef QUEUE_H_
 #define QUEUE_H_
 
-#define MAX_SIZE 600 
-
 
 #include "node.h"
 #include "stdbool.h"
 #include "bfs.h"
-#include "graph.h"
 typedef struct
 {
 	node_t arr[MAX_SIZE];
