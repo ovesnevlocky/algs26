@@ -9,7 +9,7 @@
 int main(int argc, char *argv[])
 {
 
-	char *fname = "graphs/500.txt";
+	char *fname = "graphs/big.txt";
 
 	if(argc > 1)
 		fname = argv[1];
@@ -29,8 +29,14 @@ int main(int argc, char *argv[])
 		case 'v':
 		printGraphNodes(b);
 		break;
+		case 'd':
+		ret = startDfs((dfs_t*)b, 0);
+		break;
+		case 'b':
+		ret = startBfs(b, 0);
+		break;
 		default:
-		ret = startDfs((dfs_t*)b, 76);
+		ret = startBfs(b, 0);
 		break;
 
 	}

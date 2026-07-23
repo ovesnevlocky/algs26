@@ -16,7 +16,8 @@ vis: $(BIN)
 	./$(BIN) $(ARGS) | dot -Tpdf > vis.pdf
 
 run: $(BIN) 
-	./$(BIN) $(ARGS)
+	./$(BIN) $(ARGS) > result.txt
+	cat result.txt
 
 gdb:
 	gdb -iex "set debuginfod enabled off"  ./$(BIN)

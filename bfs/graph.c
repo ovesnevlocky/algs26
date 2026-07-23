@@ -39,29 +39,6 @@ graph_t* enlargeGraph(graph_t *g)
 	return g;
 }
 
-void printEdge(int from, int to)
-{
-	printf("%i -- %i;\n", from, to);
-}
-
-void printGraph(const graph_t * g)
-{
-	int idxEdges = 0;
-	int count = 0;
-
-	printf("graph {\n");
-	
-	for(int i = 0; i  <g->numEdges ; i++)
-	{
-		edge_t e = g->edges[i];
-		
-		printEdge(e.from, e.to);	
-	}
-	
-	printf("}\n");
-
-}
-
 
 int loadGraph(graph_t *g,const char *fname)
 {
@@ -105,9 +82,3 @@ int loadGraph(graph_t *g,const char *fname)
 
 }
 
-void printEdges(graph_t *g)
-{
-	for(int i = 0; i < g-> numEdges; i++)
-		printf("%i -> %i\n", g->edges[i].from, 	g->edges[i].to);
-
-}

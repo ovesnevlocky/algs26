@@ -27,6 +27,7 @@ int *startDfs(dfs_t *d, int startNode)
 	if(startNode > d->numNodes)
 	{
 		fprintf(stderr, "biggest possible startNode is numNodes: got %i but numNodes %i\n", startNode, d->numNodes);
+		return NULL;
 	}
 	int *ret = myMalloc(sizeof(int) * (d->numNodes + 100));
 	
